@@ -1,8 +1,7 @@
 # Project Plan 
 
-##Name of the team
+## Name of the team
 Play2Win
-
 ## Team members
 Name            | Email                             | StudentId  
 -----------     | ------------                      | --------
