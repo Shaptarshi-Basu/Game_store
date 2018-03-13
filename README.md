@@ -1,65 +1,71 @@
+# Project Plan 
+
+#Name of the team
+Play2Win
+
+## Team members
+Name            | Email                             | StudentId  
+-----------     | ------------                      | --------
+Shaptarshi Basu | shaptarshi.basu@student.tut.fi    | 267647 |
+Istiaq Ahsan    | istiaq.ahsan@student.tut.fi       |  |
+Wenzhu Xing     | wenzhu.xing@student.tut.fi        |  |
+
+## Project execution
+* Whatsapp will be used for group communication.
+* We will use Scrum methodology during development, so we will divide our development into sprints,
+* Normally everyone is assigned their own tasks and development is done seperately.
+* We will use Excel for sprint backlog and issue tracking.
+
+## List of features
+
+These features will be implemented, unless otherwise specified.
+
+* User groups and basic user functionalities.
+    * Any users can browse and search games.
+    * Players can buy and play games, check and submit to highscores, save and load gamestates.
+    * Developers can add/modify/remove and see sales statistics of their own games.
+* Authentication.
+* Game/service communication.
+* JavaScript game (something moving and interesting)
+* Quality of work (Testing, agreed coding standard, quality assurance...)
+* Documentation (game and final report separately)
+* Testing the service with other groups’ games
+* RESTful API (GET, POST, PUT, DELETE)
+* Save/load and resolution feature (resolution is implemented only if time allows it)
+* Mobile Friendly (implemented if time allows it)
+* 3rd party login (implemented if time allows it)
+
+## Implementation of features
+
+The project is implemented with Django framework, using wide variety of built-in Django features.
+Back-end and front-end will be implemented as separate Django apps.
+Back-end will have the database, exposed through a RESTful API.
+Front-end will have the views and static files required for the user interfaces.
+
+* Back-end
+    #yet to be implemented
+
+* Front-end
+    #yet to be implemented
+
+* Games
+    #yet to be implemented
+
+* Documentations
+    * DONE. Project plan, backend API document, final report.
+
+## Tasks and timetable
+
+## Distribuation of works
 
 
-Check out this page: https://plus.cs.tut.fi/seitti/2018/static_material/project_work/
-for info on how to have a nice workflow with the project.
+Name            | Role                | StudentId  
+-----------     | ------------        | --------
+Shaptarshi Basu | Backend Developer   | 267647 |
+Istiaq Ahsan    | Frontend Developer  |  |
+Wenzhu Xing     | Backend Developer   |  |
 
 
+## Instructions
 
-
-
-This readme below is the official Heroku Django template readme.
-
-
-
-
-
-
-# Heroku Django Starter Template
-
-An utterly fantastic project starter template for Django 2.0.
-
-## Features
-
-- Production-ready configuration for Static Files, Database Settings, Gunicorn, etc.
-- Enhancements to Django's static file serving functionality via WhiteNoise.
-- Latest Python 3.6 runtime environment.
-
-## How to Use
-
-To use this project, follow these steps:
-
-1. Create your working environment.
-2. Install Django (`$ pipenv install django`)
-3. Create a new project using this template
-
-## Creating Your Project
-
-Using this template to create a new Django app is easy::
-
-    $ django-admin.py startproject --template=https://github.com/heroku/heroku-django-template/archive/master.zip --name=Procfile helloworld
-
-(If this doesn't work on windows, replace `django-admin.py` with `django-admin`)
-
-You can replace ``helloworld`` with your desired project name.
-
-## Deployment to Heroku
-
-    $ git init
-    $ git add -A
-    $ git commit -m "Initial commit"
-
-    $ heroku create
-    $ git push heroku master
-
-    $ heroku run python manage.py migrate
-
-See also, a [ready-made application](https://github.com/heroku/python-getting-started), ready to deploy.
-
-
-## License: MIT
-
-## Further Reading
-
-- [Gunicorn](https://warehouse.python.org/project/gunicorn/)
-- [WhiteNoise](https://warehouse.python.org/project/whitenoise/)
-- [dj-database-url](https://warehouse.python.org/project/dj-database-url/)
+##To be filled later
