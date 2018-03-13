@@ -45,15 +45,16 @@ Front-end will have the views and static files required for the user interfaces.
     yet to be implemented
 
 * Front-end
-    #yet to be implemented
+    yet to be implemented
 
 * Games
-    #yet to be implemented
+    yet to be implemented
 
 * Documentations
-    * DONE. Project plan, backend API document, final report.
+    * DONE. Project plan.
 
 ## Tasks and timetable
+To be filled later
 
 ## Distribuation of works
 
@@ -67,4 +68,4 @@ Wenzhu Xing     | Backend Developer   |  |
 
 ## Instructions
 
-##To be filled later
+To be filled later
