@@ -3,11 +3,11 @@
 ## Name of the team
 Play2Win
 ## Team members
-Name            | Email                             | StudentId  
------------     | ------------                      | --------
-Shaptarshi Basu | shaptarshi.basu@student.tut.fi    | 267647 |
-Istiaq Ahsan    | istiaq.ahsan@student.tut.fi       |  |
-Wenzhu Xing     | wenzhu.xing@student.tut.fi        |  |
+Name                  | Email                          | StudentId  
+-----------           | ------------                   | --------
+Shaptarshi Basu       | shaptarshi.basu@student.tut.fi | 267647 |
+Md Nahid Istiaq Ahsan | istiaq.ahsan@student.tut.fi    | 272489 |
+Wenzhu Xing           | wenzhu.xing@student.tut.fi     |  |
 
 ## Project execution
 * Whatsapp will be used for group communication.
@@ -59,11 +59,12 @@ To be filled later
 ## Distribuation of works
 
 
-Name            | Role                | StudentId  
------------     | ------------        | --------
-Shaptarshi Basu | Backend Developer   | 267647 |
-Istiaq Ahsan    | Frontend Developer  |  |
-Wenzhu Xing     | Backend Developer   |  |
+Name                  | Email                          | StudentId  
+-----------           | ------------                   | --------
+Shaptarshi Basu       | shaptarshi.basu@student.tut.fi | 267647 |
+Md Nahid Istiaq Ahsan | istiaq.ahsan@student.tut.fi    | 272489 |
+Wenzhu Xing           | wenzhu.xing@student.tut.fi     |  |
+
 
 
 ## Instructions
