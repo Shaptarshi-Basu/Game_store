@@ -1,6 +1,6 @@
 # Project Plan 
 
-#Name of the team
+##Name of the team
 Play2Win
 
 ## Team members
@@ -43,7 +43,7 @@ Back-end will have the database, exposed through a RESTful API.
 Front-end will have the views and static files required for the user interfaces.
 
 * Back-end
-    #yet to be implemented
+    yet to be implemented
 
 * Front-end
     #yet to be implemented
