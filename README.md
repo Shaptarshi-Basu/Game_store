@@ -7,7 +7,7 @@ Name                  | Email                          | StudentId
 -----------           | ------------                   | --------
 Shaptarshi Basu       | shaptarshi.basu@student.tut.fi | 267647 |
 Md Nahid Istiaq Ahsan | istiaq.ahsan@student.tut.fi    | 272489 |
-Wenzhu Xing           | wenzhu.xing@student.tut.fi     |  |
+Wenzhu Xing           | wenzhu.xing@student.tut.fi     | 267642 |
 
 ## Project execution
 * Whatsapp will be used for group communication.
@@ -63,7 +63,7 @@ Name                  | Email                          | StudentId
 -----------           | ------------                   | --------
 Shaptarshi Basu       | shaptarshi.basu@student.tut.fi | 267647 |
 Md Nahid Istiaq Ahsan | istiaq.ahsan@student.tut.fi    | 272489 |
-Wenzhu Xing           | wenzhu.xing@student.tut.fi     |  |
+Wenzhu Xing           | wenzhu.xing@student.tut.fi     | 267642 |
 
 
 
