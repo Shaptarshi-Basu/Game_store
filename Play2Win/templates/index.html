@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Play2Win{% endblock %}
+{% block content %}
+<link href="static/styles.css" rel="stylesheet" type="text/css" />
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <a href="/">
+      <!-- images should come here -->
+    </a>
+    <h1>Search and play games over Play2Win </h1>
+    <p>Get fascinating games to choose from and get addicted to !!!!</p>
+
+    <a class="btn btn-primary" href="https://course-gitlab.tut.fi/wsd-2018/g-064.git"><span class="glyphicon glyphicon-download"></span> Source on GitHub</a>
+  </div>
+</div>
+<div class="container">
+  <div class="alert alert-info text-center" role="alert">
+    Add Games from here <a href="add_game/" class="alert-link">Add games</a>.
+  </div>
+  <hr>
+  <div class="row">
+
+    <div class="col-md-6">
+        <h2>Browse a Variety of Games..</h2>
+
+    </div>
+  </div> <!-- row -->
+<div class="alert alert-info text-center" role="alert">Developed by: <a href="https://www.facebook.com/saptarshi.basu.96">Shaptarshi Basu</a></div>
+</div> <!-- container -->
+{% endblock %}
