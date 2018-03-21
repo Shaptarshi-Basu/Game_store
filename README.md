@@ -1,7 +1,7 @@
 # Project Plan 
 
 ## Name of the team
-Play2Win
+Play2Win-https://aqueous-reaches-38143.herokuapp.com/dashboard/
 ## Team members
 Name                  | Email                          | StudentId  
 -----------           | ------------                   | --------
