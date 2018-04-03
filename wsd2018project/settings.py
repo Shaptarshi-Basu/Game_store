@@ -18,6 +18,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587 #Gmail SMTP port (TLS): 587 OR #Gmail SMTP port (SSL): 465
+EMAIL_HOST_USER = 'play2wingamestore@gmail.com'
+EMAIL_HOST_PASSWORD = 'sbsbcbob123'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -149,6 +156,6 @@ STATICFILES_DIRS = [
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+LOGIN_REDIRECT_URL = '/dashboard'
 # Activate Django-Heroku.
 django_heroku.settings(locals())

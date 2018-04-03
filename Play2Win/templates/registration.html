@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block header %}
+<!-- <link href="{{ STATIC_URL }}styles.css" rel="stylesheet" type="text/css" /> -->
+
+{% load static %}
+<link href="https://daak-store.herokuapp.com/static/styles.css" rel="stylesheet" type="text/css" />
+
+
+
+{% endblock %}
+{% block content %}
+{% if msg %}
+    <p style="color:blue;">{{msg}}</p>
+{% endif %}
+<div id="centertag" class="registration-container">
+  <h2>Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br />
+        {{ field }}<br />
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <input type="checkbox" name="developer" value="developer_box" checked id="developer"><label for="developer"> I am a developer </label> <br>
+    <button type="submit">Sign up</button>
+  </form>
+</div>
+{% endblock %}
