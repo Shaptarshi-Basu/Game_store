@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import View
-from .forms import UserForm
+from .forms import UserForm,AddGameForm
 from .models import *
 
 
@@ -61,11 +61,36 @@ Shaptarshi Basu!
 https://aqueous-reaches-38143.herokuapp.com/dashboard/#
 """ % {'name': name, 'link': secure_link}
 
-    # <a href="https://daak-store.herokuapp.com/user_verification/""" + secure_link + """
-    # ">https://daak-store.herokuapp.com/user_verification/""" + secure_link + """</a>
     send_mail('Please confirm your registration, ' + name,
               msg, 'shapbasu@gmail.com', [email])
-
+def addgame(request):
+    if request.user.is_authenticated:
+        form = AddGameForm(data=request.POST)
+        if form.is_valid():
+            game = form.save(commit=False)
+            if not game.game_name.isalpha():
+                return render(request, "add_game.html", {"form": form, "msg": "Please specify an alphanumeric game name (It's the Game ID)"})
+            if Game.objects.filter(game_name=game.game_name).exists():
+                return render(request, "add_game.html", {"form": form, "msg": "ERROR: That name is already in use"})
+            game.game_developer = request.user  # gets user
+            game.save()
+            return render(request, "add_game.html", {"form": form, "msg": "Game added successfully"})
+        else:
+            print(form.errors)
+        return render(request, "add_game.html", {"form": form})
+    else:
+        return redirect("/login")
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html', {"allgames": Game.objects.all()})
+def game(request, name):
+    if request.user.is_authenticated:
+        game = Game.objects.get(game_name=name)
+        return render(request, 'game.html', {"game": Game.objects.get(game_name=name.replace("_", " "))})
+    else:
+        return redirect('login')
+def games(request):
+    if request.user.is_authenticated:
+        return render(request, 'games.html', {"allgames": Game.objects.all()})
+    else:
+        return redirect('login')

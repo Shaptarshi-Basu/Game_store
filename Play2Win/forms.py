@@ -11,3 +11,7 @@ class UserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
+class AddGameForm(forms.ModelForm):
+    class Meta:
+        model = Game
+        fields = ('game_name', 'game_url', 'game_price')
