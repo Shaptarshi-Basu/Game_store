@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block header %}
+{% load static %}
+<style>
+body {
+    background: #555;
+}
+
+.content {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 10px;
+}
+</style>
+{% endblock %}
+{% block title %}Welcome {{request.user.username}}{% endblock %}
+
+{% block content %}
+<div id="centertag" class="content">
+<div>
+{% for game in allgames %}
+<a href="{{game.game_name.split|join:"_"}}">
+    <b>
+    {{game.game_name }}
+    </b> by
+    {{game.game_developer}}
+    <br />
+    ${{game.game_price|floatformat:2}}
+  </a>
+
+  {% empty %}
+      <li>No games yet.</li>
+      <a href="{% url 'addgame' %}">Want to add game? Click here</a>
+{% endfor %}
+</div>
+{% endblock %}
+</div>
