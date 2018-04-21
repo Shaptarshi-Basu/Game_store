@@ -14,5 +14,9 @@ urlpatterns = [
     url(r'^games/(\w+)$', Play2Win.views.game, name='game'),
     url(r'^games/$', Play2Win.views.games, name='games'),
     url(r'^auth/', include('social_django.urls', namespace='social')),
+    url(r'^begin_payment/(.+)$', Play2Win.views.begin_payment, name='begin_payment'),
+    url(r'^payment_successful/.*', Play2Win.views.payment_successful),
+    url(r'^payment_cancelled/.*', Play2Win.views.payment_cancelled),
+    url(r'^payment_failed/.*', Play2Win.views.payment_failed),
     path('admin/', admin.site.urls),
 ]

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Payment Success!, Congrats {{request.user.username}}{% endblock %}
+{% block content %}
+<style>
+body {
+    background: #555;
+}
+
+.content {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 10px;
+}
+</style>
+<div id = "centertag" class="content">
+{% if user.is_authenticated %}
+     <h2>{{request.user.username}}, the payment was successful and the game was added </h2>
+{% else %}
+     <a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span> Register</a>
+{% endif %}
+
+   <p>The payment for the game has been made.Please continue using the games store</p>
+   <a href="{% url 'home' %}">Return to home page to browse,play and add more games</a>
+</div>
+{% endblock %}

@@ -166,8 +166,8 @@ STATICFILES_DIRS = [
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-LOGIN_REDIRECT_URL = 'login'
-LOGIN_URL = 'home'
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='135580857026-tjorq2s09l6h686etd5mdm5l1l3kf8qo.apps.googleusercontent.com'  #Paste CLient Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'dkA2NXmgSxF8LlQ60etbzQ78' #Paste Secret Key
 # Activate Django-Heroku.

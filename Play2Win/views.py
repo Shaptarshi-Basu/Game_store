@@ -13,7 +13,7 @@ class UserFormView(View):
 
     #display blank form
     def get(self,request):
-        form = UserForm()  # 3ICE: Possibly stop using this, since we need to send the email
+        form = UserForm()
         return render(request, 'registration.html', {'form': form})
     #process form data
     def post(self,request):
@@ -26,16 +26,12 @@ class UserFormView(View):
             if not name.isalpha():
                 return render(request, 'registration.html', {'form': form, 'msg':"Use only alpha numeric"})
             user = authenticate(username=name, password=raw_password)
-            dev = request.POST.get("developer", "not_developer") == "developer_box"  # check if developer
+            dev = request.POST.get("developer", "not_developer") == "developer_box"  # check if its a developer or player
             user_db.developer = dev
             user_db.save()
             player = Player.objects.create(user=user_db, developer=dev, activated=False)
             hashed_password = user_db.password
             send_confirmation_mail(name, hashed_password, email)
-            # if dev in ["developer_box"]: #3ICE: This is not how you check the existence of a checkbox.
-            #    return redirect('registration')
-            # else:
-            #    return redirect('profile_player')
             return redirect('login')
         else:
             return render(request, 'registration.html', {'form': form})
@@ -61,7 +57,7 @@ Shaptarshi Basu!
 https://aqueous-reaches-38143.herokuapp.com/dashboard/#
 """ % {'name': name, 'link': secure_link}
 
-    send_mail('Please confirm your registration, ' + name,
+    send_mail('Thanks for regstering, ' + name,
               msg, 'shapbasu@gmail.com', [email])
 def addgame(request):
     if request.user.is_authenticated:
@@ -86,7 +82,10 @@ def index(request):
 def game(request, name):
     if request.user.is_authenticated:
         game = Game.objects.get(game_name=name)
-        return render(request, 'game.html', {"game": Game.objects.get(game_name=name.replace("_", " "))})
+        if Score.objects.filter(game=game, player=request.user).exists():
+            return render(request, 'game.html', {"game": Game.objects.get(game_name=name.replace("_", " "))})
+        else:
+            return redirect('../begin_payment/' + name)
     else:
         return redirect('login')
 def games(request):
@@ -94,3 +93,74 @@ def games(request):
         return render(request, 'games.html', {"allgames": Game.objects.all()})
     else:
         return redirect('login')
+def createPaymentID(username, game_name):
+    pid = username
+    pid += '____'
+    pid += game_name
+    return pid
+"""
+Calculating an MD5 checksum of the function arguement.
+"""
+def md5hex(tohash):
+
+    try:
+        import hashlib
+        m = hashlib.md5()
+    except:
+        import md5
+        m = md5.new()
+    m.update(tohash)
+    return m.hexdigest()
+
+def begin_payment(request,game_name):
+    if request.user.is_authenticated:
+        game = Game.objects.get(game_name=game_name)
+        pid = createPaymentID(request.user.username, game_name)  #just creating a payment by concact of username and game_name
+        sid = "shaptarshibasu"
+        price = game.game_price
+        secret_key = "02994d1818b2e34a4ae79a0c00b9f474"
+        checksum = 'pid={}&sid={}&amount={}&token={}'.format(pid, sid, price, secret_key)
+
+        return render(request, 'begin_payment.html', {'game_name': game_name, 'pid': pid, 'price': price,
+                                                  'checksum': md5hex(checksum.encode("ascii"))})
+    else:
+        return redirect("/login")
+def payment_successful(request):
+    # create a logic which takes care of checking whether player has already bought the game
+    # if the player has already purchased, throw error, navigate back to the game
+    # else add player to the game or vice versa, navigate back to the games list
+    if request.user.is_authenticated:
+        checksum = request.GET['checksum']
+        ref = request.GET['ref']
+        pid = request.GET['pid']
+        result = request.GET['result']
+        sid = "shaptarshibasu"
+        secret_key = "02994d1818b2e34a4ae79a0c00b9f474"
+        username, game_name = pid.split('____')
+        game = Game.objects.get(game_name=game_name)
+        checksum2 = 'pid={}&ref={}&result={}&token={}'.format(pid, ref, result, secret_key)
+        print(md5hex(checksum.encode("ascii")))
+        print()
+        if md5hex(checksum2.encode("ascii")) == checksum:
+            user = User.objects.get(username=username)
+            if Score.objects.filter(game=game, player=user).exists():
+                raise Http404("<h2> You don't have to pay us twice!,You already have the game in your inventory " + user.username)
+            else:
+                Score.objects.create(game=game, player=user, score=0)
+                game.save()
+            return render(request, 'payment_successful.html', {'game': game})
+        else:
+            return render(request, 'payment_failed.html')
+    else:
+        return redirect("/login")
+
+def payment_failed(request):
+    if request.user.is_authenticated:
+        return render(request, 'payment_failed.html')
+    else:
+        return redirect("/login")
+def payment_cancelled(request):
+    if request.user.is_authenticated:
+        return render(request, 'payment_cancelled.html')
+    else:
+        return redirect("/login")
