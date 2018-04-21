@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.conf.urls import url
 import Play2Win.views
 from django.contrib.auth import views as auth_views
-
+from rest_framework import routers
 
 urlpatterns = [
     url('dashboard/', Play2Win.views.index, name='home'),
@@ -18,5 +18,8 @@ urlpatterns = [
     url(r'^payment_successful/.*', Play2Win.views.payment_successful),
     url(r'^payment_cancelled/.*', Play2Win.views.payment_cancelled),
     url(r'^payment_failed/.*', Play2Win.views.payment_failed),
+    url(r'^save/', Play2Win.views.save),
+    url(r'^load/', Play2Win.views.load),
+    url(r'^score/', Play2Win.views.score),
     path('admin/', admin.site.urls),
 ]
