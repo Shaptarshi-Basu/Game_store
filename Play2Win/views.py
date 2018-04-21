@@ -5,7 +5,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import View
 from .forms import UserForm,AddGameForm
 from .models import *
+import json
+from django.http import JsonResponse
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 class UserFormView(View):
     form_class = UserForm
@@ -61,19 +65,23 @@ https://aqueous-reaches-38143.herokuapp.com/dashboard/#
               msg, 'shapbasu@gmail.com', [email])
 def addgame(request):
     if request.user.is_authenticated:
-        form = AddGameForm(data=request.POST)
-        if form.is_valid():
-            game = form.save(commit=False)
-            if not game.game_name.isalpha():
-                return render(request, "add_game.html", {"form": form, "msg": "Please specify an alphanumeric game name (It's the Game ID)"})
-            if Game.objects.filter(game_name=game.game_name).exists():
-                return render(request, "add_game.html", {"form": form, "msg": "ERROR: That name is already in use"})
-            game.game_developer = request.user  # gets user
-            game.save()
-            return render(request, "add_game.html", {"form": form, "msg": "Game added successfully"})
+        player=Player.objects.get(user=request.user)
+        if player.developer==True:
+            form = AddGameForm(data=request.POST)
+            if form.is_valid():
+                game = form.save(commit=False)
+                if not game.game_name.isalpha():
+                    return render(request, "add_game.html", {"form": form, "msg": "Please specify an alphanumeric game name (It's the Game ID)"})
+                if Game.objects.filter(game_name=game.game_name).exists():
+                    return render(request, "add_game.html", {"form": form, "msg": "ERROR: That name is already in use"})
+                game.game_developer = request.user  # gets user
+                game.save()
+                return render(request, "add_game.html", {"form": form, "msg": "Game added successfully"})
+            else:
+                print(form.errors)
+            return render(request, "add_game.html", {"form": form})
         else:
-            print(form.errors)
-        return render(request, "add_game.html", {"form": form})
+            return redirect("/dashboard")        
     else:
         return redirect("/login")
 
@@ -164,3 +172,64 @@ def payment_cancelled(request):
         return render(request, 'payment_cancelled.html')
     else:
         return redirect("/login")
+
+@api_view(['GET'])
+def games_list(request):
+    if request.user.is_authenticated() and not request.user.is_anonymous():
+        games = Game.objects.all()
+        if request.method == 'GET':
+            serializer = GameSerializer(games, many=True)
+            return Response(serializer.data)
+    else:
+        return redirect("login")
+
+def save(request):
+    if request.method == 'POST' and request.is_ajax():
+        data = json.loads(request.POST.get('state', None))
+        state = data['gameState']
+        states = json.dumps(state)
+        game_name = request.POST.get('game_name', None)
+        player_name = request.POST.get('player_name', None)
+        game = Game.objects.get(game_name=game_name)
+        user = User.objects.get(username=player_name)
+        score = Score.objects.filter(game=game, player=user)
+        # score.update(score=state["gameState"])
+        score.update(state=states)
+        return JsonResponse(states, safe=False)
+    else:
+        raise Http404('Not a POST request, not an AJAX request, what are you doing?')
+
+
+def score(request):
+    if request.method == 'POST' and request.is_ajax():
+        data = json.loads(request.POST.get('state', None))
+        state = data['score']
+        game_name = request.POST.get('game_name', None)
+        player_name = request.POST.get('player_name', None)
+        game = Game.objects.get(game_name=game_name)
+        user = User.objects.get(username=player_name)
+        score = Score.objects.filter(game=game, player=user)
+        score.update(score=state)
+        return JsonResponse(state, safe=False)
+    else:
+        raise Http404('Not a POST request, not an AJAX request, what are you doing?')
+
+
+def load(request):
+    if request.method == 'POST' and request.is_ajax():
+        data = json.loads(request.POST.get('json', None))
+        game_name = request.POST.get('game_name', None)
+        player_name = request.POST.get('player_name', None)
+        game = Game.objects.get(game_name=game_name)
+        user = User.objects.get(username=player_name)
+        score = Score.objects.get(game=game, player=user)
+
+        data["messageType"] = "LOAD"
+        data["gameState"] = score.state
+        if score.state:
+            data["messageType"] = "LOAD"
+            data["gameState"] = score.state
+
+        return JsonResponse(data)
+    else:
+        raise Http404('Not a POST request, not an AJAX request, what are you doing?')
