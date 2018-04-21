@@ -1,6 +1,5 @@
 {% extends 'base.html' %} {% block title %}{{game.game_name}}{% endblock %} {% block header %}
-<!-- <link href="{{ STATIC_URL }}styles.css" rel="stylesheet" type="text/css" /> -->
-
+<
 <style type="text/css">
   button {
     background-color: #003250;
@@ -75,9 +74,8 @@
       } else if (data.messageType == "LOAD") {
         document.getElementById("game_frame").contentWindow.postMessage(data, "*");
       }
-    }) // 3ICE: These two brackets close (window).on
-  }); //3ICE: These two close (document).ready and the function(){} inside it.
-
+    })
+  });
 
   //Thanks to: http://stackoverflow.com/questions/819416/adjust-width-height-of-iframe-to-fit-with-content-in-it
   window.addEventListener('DOMContentReady', function(e) {
@@ -88,20 +86,6 @@
     }
   });
 </script>
-<!-- <script>
-  $(document).ready() {
-
-    window.addEventListener("message", receiveMessage, false);
-
-    function receiveMessage(event) {
-      var origin = event.origin || event.originalEvent.origin; // For Chrome, the origin property is in the event.originalEvent object.
-      if (origin !== "http://example.org:8080")
-        return;
-
-      // ...
-    }
-  }
-</script> -->
 {% endblock %} {% block content %}
 <div id="centertag" class="registration-container">
   <div>
@@ -124,4 +108,3 @@
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-58fce111f368b7c6"></script>
 </div>
  {% endblock %}
-

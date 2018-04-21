@@ -81,7 +81,7 @@ def addgame(request):
                 print(form.errors)
             return render(request, "add_game.html", {"form": form})
         else:
-            return redirect("/dashboard")        
+            return redirect("/dashboard")
     else:
         return redirect("/login")
 
@@ -134,9 +134,9 @@ def begin_payment(request,game_name):
     else:
         return redirect("/login")
 def payment_successful(request):
-    # create a logic which takes care of checking whether player has already bought the game
-    # if the player has already purchased, throw error, navigate back to the game
-    # else add player to the game or vice versa, navigate back to the games list
+    """ The aim is to check whether player has already bought the game.If the player
+        has not already paid then then redirect to payment or else throw appropriate error.
+    """
     if request.user.is_authenticated:
         checksum = request.GET['checksum']
         ref = request.GET['ref']
@@ -152,7 +152,7 @@ def payment_successful(request):
         if md5hex(checksum2.encode("ascii")) == checksum:
             user = User.objects.get(username=username)
             if Score.objects.filter(game=game, player=user).exists():
-                raise Http404("<h2> You don't have to pay us twice!,You already have the game in your inventory " + user.username)
+                raise Http404("<h2> Payment need to be done only once. They game is already available for playing " + user.username)
             else:
                 Score.objects.create(game=game, player=user, score=0)
                 game.save()
@@ -173,16 +173,6 @@ def payment_cancelled(request):
     else:
         return redirect("/login")
 
-@api_view(['GET'])
-def games_list(request):
-    if request.user.is_authenticated() and not request.user.is_anonymous():
-        games = Game.objects.all()
-        if request.method == 'GET':
-            serializer = GameSerializer(games, many=True)
-            return Response(serializer.data)
-    else:
-        return redirect("login")
-
 def save(request):
     if request.method == 'POST' and request.is_ajax():
         data = json.loads(request.POST.get('state', None))
@@ -193,11 +183,10 @@ def save(request):
         game = Game.objects.get(game_name=game_name)
         user = User.objects.get(username=player_name)
         score = Score.objects.filter(game=game, player=user)
-        # score.update(score=state["gameState"])
         score.update(state=states)
         return JsonResponse(states, safe=False)
     else:
-        raise Http404('Not a POST request, not an AJAX request, what are you doing?')
+        raise Http404('Not a post request check javascript')
 
 
 def score(request):
@@ -212,7 +201,7 @@ def score(request):
         score.update(score=state)
         return JsonResponse(state, safe=False)
     else:
-        raise Http404('Not a POST request, not an AJAX request, what are you doing?')
+        raise Http404('Not a post request check javascript')
 
 
 def load(request):
@@ -232,4 +221,4 @@ def load(request):
 
         return JsonResponse(data)
     else:
-        raise Http404('Not a POST request, not an AJAX request, what are you doing?')
+        raise Http404('Not a post request check javascript')

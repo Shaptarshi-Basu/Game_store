@@ -4,70 +4,24 @@
 
 {% load static %}
 <style>
-button {
-    background-color: #003250;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+body {
+    background: #555;
 }
-/*input{
-    background-color: #4CAF50 !important;
-    border: none !important;
-    color: white !important;
-    padding: 15px 32px !important;
-    text-align: center !important;
-    text-decoration: none !important;
-    display: inline-block !important;
-    font-size: 16px !important;
-    margin: 4px 2px !important;
-    cursor: pointer !important;
-}
-*/
 
-.registration-container{
-position: relative;
-background: #B1DBFF;
-width: 600px;
-margin: auto;
-text-align: center;
-}
-#centertag a{
-  display: block;
-  border: 1px solid;
-}
-input[type="submit"]{
-    background-color: #003250;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-#centertag ul{
-    list-style-type: none;
-}
-#centertag li{
-    list-style-type: none;
+.content {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 10px;
 }
 </style>
-
 
 {% endblock %}
 {% block content %}
 {% if msg %}
     <p style="color:blue;">{{msg}}</p>
 {% endif %}
-<div id="centertag" class="registration-container">
+<div id="centertag" class="content">
   <h2>Sign up</h2>
   <form method="post">
     {% csrf_token %}
