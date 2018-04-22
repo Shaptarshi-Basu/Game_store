@@ -95,7 +95,7 @@ def games(request):
     if request.user.is_authenticated():
         return render(request, 'games.html', {"allgames": Game.objects.all()})
     else:
-        return redirect('login') # 3ICE: We must ALWAYS return something, if it's a function like this
+        return redirect('/login')
 
 def game(request, name):
     if request.user.is_authenticated:
