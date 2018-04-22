@@ -23,20 +23,20 @@ class UserFormView(View):
     def post(self,request):
         form = UserForm(request.POST)
         if form.is_valid():
-            user_db = form.save(commit=False)
+            userDatabase = form.save(commit=False)
             name = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             email = form.cleaned_data.get('email')
             if not name.isalpha():
                 return render(request, 'registration.html', {'form': form, 'msg':"Use only alpha numeric"})
             user = authenticate(username=name, password=raw_password)
-            dev = request.POST.get("developer", "not_developer") == "developer_box"  # check if its a developer or player
-            user_db.developer = dev
-            user_db.save()
-            player = Player.objects.create(user=user_db, developer=dev, activated=False)
-            hashed_password = user_db.password
-            send_confirmation_mail(name, hashed_password, email)
-            return redirect('login')
+            dev = request.POST.get("developer", "not_developer") == "isDeveloper"  # check if its a developer or player
+            userDatabase.developer = dev
+            userDatabase.save()
+            player = Player.objects.create(user=userDatabase, developer=dev, activated=False)
+            hashed_password = userDatabase.password
+            sendMailToUser(name, hashed_password, email)
+            return redirect('/login')
         else:
             return render(request, 'registration.html', {'form': form})
 
@@ -49,7 +49,7 @@ class UserFormView(View):
                     return redirect('index.html')
             #return render(request, self.template_name,{'dashboard' : })
             return render(request, 'index.html')
-def send_confirmation_mail(name, pw, email):
+def sendMailToUser(name, pw, email):
     secure_link = name + "$$$$" + pw
     msg = """
 Dear %(name)s,
@@ -69,13 +69,13 @@ def addgame(request):
         if player.developer==True:
             form = AddGameForm(data=request.POST)
             if form.is_valid():
-                game = form.save(commit=False)
-                if not game.game_name.isalpha():
-                    return render(request, "add_game.html", {"form": form, "msg": "Please specify an alphanumeric game name (It's the Game ID)"})
-                if Game.objects.filter(game_name=game.game_name).exists():
-                    return render(request, "add_game.html", {"form": form, "msg": "ERROR: That name is already in use"})
-                game.game_developer = request.user  # gets user
-                game.save()
+                gameDetails = form.save(commit=False)
+                if not gameDetails.game_name.isalpha():
+                    return render(request, "add_game.html", {"form": form, "msg": "Name should be alphabetic only without any spaces"})
+                if Game.objects.filter(game_name=gameDetails.game_name).exists():
+                    return render(request, "add_game.html", {"form": form, "msg": "ERROR: Name exists"})
+                gameDetails.game_developer = request.user  # gets user
+                gameDetails.save()
                 return render(request, "add_game.html", {"form": form, "msg": "Game added successfully"})
             else:
                 print(form.errors)
@@ -94,11 +94,6 @@ def game(request, name):
             return render(request, 'game.html', {"game": Game.objects.get(game_name=name.replace("_", " "))})
         else:
             return redirect('../begin_payment/' + name)
-    else:
-        return redirect('login')
-def games(request):
-    if request.user.is_authenticated:
-        return render(request, 'games.html', {"allgames": Game.objects.all()})
     else:
         return redirect('login')
 def createPaymentID(username, game_name):
@@ -185,21 +180,6 @@ def save(request):
         score = Score.objects.filter(game=game, player=user)
         score.update(state=states)
         return JsonResponse(states, safe=False)
-    else:
-        raise Http404('Not a post request check javascript')
-
-
-def score(request):
-    if request.method == 'POST' and request.is_ajax():
-        data = json.loads(request.POST.get('state', None))
-        state = data['score']
-        game_name = request.POST.get('game_name', None)
-        player_name = request.POST.get('player_name', None)
-        game = Game.objects.get(game_name=game_name)
-        user = User.objects.get(username=player_name)
-        score = Score.objects.filter(game=game, player=user)
-        score.update(score=state)
-        return JsonResponse(state, safe=False)
     else:
         raise Http404('Not a post request check javascript')
 
