@@ -19,7 +19,11 @@ class UserFormView(View):
     def get(self,request):
         form = UserForm()
         return render(request, 'registration.html', {'form': form})
-    #process form data
+    """
+    This method is effectively used when we submit the registration form.
+    check if the form is valid and then extract the email ,name.The player model is populated, mail sent to the
+    corresponding user email.
+    """
     def post(self,request):
         form = UserForm(request.POST)
         if form.is_valid():
@@ -66,13 +70,13 @@ https://aqueous-reaches-38143.herokuapp.com/dashboard/#
 def addgame(request):
     if request.user.is_authenticated:
         player=Player.objects.get(user=request.user)
-        if player.developer==True:
+        if player.developer==True:# check before adding game if the user is developer or not
             form = AddGameForm(data=request.POST)
             if form.is_valid():
                 gameDetails = form.save(commit=False)
-                if not gameDetails.game_name.isalpha():
+                if not gameDetails.game_name.isalpha():#checking game name/id is alphabetic only
                     return render(request, "add_game.html", {"form": form, "msg": "Name should be alphabetic only without any spaces"})
-                if Game.objects.filter(game_name=gameDetails.game_name).exists():
+                if Game.objects.filter(game_name=gameDetails.game_name).exists():#cehcking if game already exists
                     return render(request, "add_game.html", {"form": form, "msg": "ERROR: Name exists"})
                 gameDetails.game_developer = request.user  # gets user
                 gameDetails.save()
@@ -85,8 +89,14 @@ def addgame(request):
     else:
         return redirect("/login")
 
-def index(request):
+def index(request):#redirects to dashboard page and fetches all games and send to index page.
     return render(request, 'index.html', {"allgames": Game.objects.all()})
+def games(request):
+    if request.user.is_authenticated():
+        return render(request, 'games.html', {"allgames": Game.objects.all()})
+    else:
+        return redirect('login') # 3ICE: We must ALWAYS return something, if it's a function like this
+
 def game(request, name):
     if request.user.is_authenticated:
         game = Game.objects.get(game_name=name)
