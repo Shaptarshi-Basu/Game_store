@@ -91,6 +91,7 @@ def addgame(request):
 
 def index(request):#redirects to dashboard page and fetches all games and send to index page.
     return render(request, 'index.html', {"allgames": Game.objects.all()})
+
 def games(request):#redirects to dashboard page and fetches all games and send to index page.
     if request.user.is_authenticated:
         return render(request, 'games.html', {"allgames": Game.objects.all()})
@@ -212,3 +213,16 @@ def load(request):
         return JsonResponse(data)
     else:
         raise Http404('Not a post request check javascript')
+def score(request):
+    if request.method == 'POST' and request.is_ajax():
+        data = json.loads(request.POST.get('state', None))
+        state = data['score']
+        game_name = request.POST.get('game_name', None)
+        player_name = request.POST.get('player_name', None)
+        game = Game.objects.get(game_name=game_name)
+        user = User.objects.get(username=player_name)
+        score = Score.objects.filter(game=game, player=user)
+        score.update(score=state)
+        return JsonResponse(state, safe=False)
+    else:
+        raise Http404('Not a POST request, not an AJAX request, what are you doing?')

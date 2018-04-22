@@ -20,5 +20,6 @@ urlpatterns = [
     url(r'^payment_failed/.*', Play2Win.views.payment_failed),
     url(r'^save/', Play2Win.views.save),
     url(r'^load/', Play2Win.views.load),
+    url(r'^score/', Play2Win.views.score),
     path('admin/', admin.site.urls),
 ]
