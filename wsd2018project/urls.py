@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, {'template_name': 'logged_out.html'}, name='logout'),
     url(r'^register/$', Play2Win.views.UserFormView.as_view(),name='register'),
     url(r'^add_game/$', Play2Win.views.addgame, name='addgame'),
-    url(r'^games/(\w+)$', Play2Win.views.game, name='game'),
+    url(r'^game/(\w+)$', Play2Win.views.game, name='game'),
     url(r'^games/$', Play2Win.views.games, name='games'),
     url(r'^auth/', include('social_django.urls', namespace='social')),
     url(r'^begin_payment/(.+)$', Play2Win.views.begin_payment, name='begin_payment'),
@@ -20,6 +20,5 @@ urlpatterns = [
     url(r'^payment_failed/.*', Play2Win.views.payment_failed),
     url(r'^save/', Play2Win.views.save),
     url(r'^load/', Play2Win.views.load),
-    url(r'^score/', Play2Win.views.score),
     path('admin/', admin.site.urls),
 ]
