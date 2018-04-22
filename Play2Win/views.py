@@ -95,8 +95,8 @@ def games(request):#redirects to dashboard page and fetches all games and send t
     if request.user.is_authenticated:
         return render(request, 'games.html', {"allgames": Game.objects.all()})
     else:
-        eturn redirect("/login")
-            
+        return redirect("/login")
+
 def game(request, name):
     if request.user.is_authenticated:
         game = Game.objects.get(game_name=name)
