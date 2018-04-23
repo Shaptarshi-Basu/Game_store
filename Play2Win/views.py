@@ -102,7 +102,7 @@ def game(request, name):
     if request.user.is_authenticated:
         game = Game.objects.get(game_name=name)
         if Score.objects.filter(game=game, player=request.user).exists():
-            return render(request, 'game.html', {"game": Game.objects.get(game_name=name.replace("_", " "))})
+            return render(request, 'game.html', {"game": Game.objects.get(game_name=name.replace("_", " ")),"score":Score.objects.filter(game=game, player=request.user).exists()})
         else:
             return redirect('../begin_payment/' + name)
     else:
@@ -225,4 +225,4 @@ def score(request):
         score.update(score=state)
         return JsonResponse(state, safe=False)
     else:
-        raise Http404('Not a POST request, not an AJAX request, what are you doing?')
+        raise Http404('Not a post request check javascript')

@@ -19,6 +19,7 @@
     text-align: center;
   }
 </style>
+
 <script>
   $(document).ready(function() {
     "use strict"
@@ -101,10 +102,9 @@
       <br /> ${{game.game_price|floatformat:2}}
     </a>
   </div>
-  <p><a href="{% url 'games' %}">Go back</a> to games list</p>
-</div>
-<span>Share this game on twitter and invite your friends to play it.</span> <br />
-<div class="addthis_inline_share_toolbox_d5h1">
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-58fce111f368b7c6"></script>
+  <p><a href="{% url 'home' %}">Go back</a> to home page</p>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://tranquil-springs-62093.herokuapp.com/{{ request.get_full_path }}">
+Share game on Facebook
+</a>
 </div>
  {% endblock %}

@@ -31,11 +31,10 @@
                   <li>
                     <a href="/games/{{game.game_name.split|join:"_"}}"><b>{{game.game_name}}</b> by {{game.game_developer}} ${{game.game_price|floatformat:2}}</a>
                   </li>
-        {% empty %}No games yet.
+        {% empty %}No games have been added yet.
         {% endfor %}
       </ul>
                 </p>
-                <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
         </div>
     </div>
   </div> <!-- row -->
