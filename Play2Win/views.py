@@ -63,7 +63,7 @@ Thanks for registering to Play2Win Store
 
 Thanks and Regards,
 Shaptarshi Basu!
-https://aqueous-reaches-38143.herokuapp.com/dashboard/#
+https://shielded-retreat-48231.herokuapp.com/dashboard/
 """ % {'name': name, 'link': secure_link}
 
     send_mail('Thanks for regstering, ' + name,
