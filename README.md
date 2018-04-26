@@ -53,8 +53,21 @@ Front-end will have the views and static files required for the user interfaces.
 * Documentations
     * DONE. Project plan.
 
-## Tasks and timetable
-To be filled later
+### Running app locally ###
+* Install python3 (if not already installed)
+* Download project files in any local directory
+* Open command line in that local directory path
+* create a virtual environment
+	* [Windows] `python -m venv env`
+	* [Linux or OS X] `python3 -m venv env`
+* Activate the virtual environment
+	* [Windows] `env\Scripts\activate`
+	* [Linux or OS X] `source env/bin/activate`
+* Install dependencies:
+	* `pip install -r requirements.txt`
+* Run server:
+	* `python manage.py runserver`
+
 
 ## Distribuation of works
 * The application has been developed by Shaptarshi Basu.The games have been developed by both Shaptarshi Basu and Wenzhu Zing
