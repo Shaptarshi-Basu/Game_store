@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Play2Win',
     'social_django',
-    'rest_framework'
+    'rest_framework',
+    'allaccess'
 ]
 
 MIDDLEWARE = [
@@ -107,6 +108,8 @@ DATABASES = {
     }
 }
 AUTHENTICATION_BACKENDS = (
+ 'django.contrib.auth.backends.ModelBackend',
+ 'allaccess.backends.AuthorizedServiceBackend',
  'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
  'social_core.backends.google.GoogleOpenId',  # for Google authentication
  'social_core.backends.google.GoogleOAuth2',  # for Google authentication
@@ -148,9 +151,9 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-LOGIN_REDIRECT_URL = 'home'
-LOGIN_URL = 'login'
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='135580857026-tjorq2s09l6h686etd5mdm5l1l3kf8qo.apps.googleusercontent.com'  #Paste CLient Key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'dkA2NXmgSxF8LlQ60etbzQ78' #Paste Secret Key
+LOGIN_REDIRECT_URL = '/dashboard'
+LOGIN_URL = '/login'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='641476432266-h53lmtio6415uuosf03gqof96e1rbjq1.apps.googleusercontent.com'  #Paste CLient Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'a1xLiiJH25kaPBu3mvrPj_vc' #Paste Secret Key
 # Activate Django-Heroku.
 django_heroku.settings(locals())

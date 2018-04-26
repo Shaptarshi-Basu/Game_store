@@ -18,6 +18,33 @@
     border: 0;
     text-align: center;
   }
+  .clickButton {
+    background-color: #f44336;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+      #share a.click {
+        font-size:13px;
+        font-weight:bold;
+        text-align:center;
+        color:#fff;
+        border:1px solid #FFF;
+        background-color:#5D7DAE;
+        cursor: pointer;
+        text-decoration:none;
+        width:80px;
+        display:block;
+      }
+
+
+
+.clickButton {
+    background-color: blue;
+}
 </style>
 
 <script>
@@ -92,6 +119,7 @@
   <div>
     <iframe id="game_frame" src="{{game.game_url}}" width="1920" height="1080">
   <p>Your browser does not support iframes.</p>
+
 </iframe>
 
     <br />
@@ -102,9 +130,13 @@
       <br /> ${{game.game_price|floatformat:2}}
     </a>
   </div>
+  <a class ="clickButton" href="/highscores/{{game.game_name}}">
+  Get Highscores for the game
+  </a>
   <p><a href="{% url 'home' %}">Go back</a> to home page</p>
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https://tranquil-springs-62093.herokuapp.com/{{ request.get_full_path }}">
-Share game on Facebook
+  <a id ="share" href="https://www.facebook.com/sharer/sharer.php?u=https://tranquil-springs-62093.herokuapp.com/{{ request.get_full_path }}">
+Share Facebook
 </a>
+
 </div>
  {% endblock %}

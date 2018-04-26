@@ -6,6 +6,7 @@ from django.views.generic import View
 from .forms import UserForm,AddGameForm
 from .models import *
 import json
+import operator
 from django.http import JsonResponse
 
 from rest_framework.decorators import api_view
@@ -226,3 +227,18 @@ def score(request):
         return JsonResponse(state, safe=False)
     else:
         raise Http404('Not a post request check javascript')
+
+@api_view(['GET'])
+def highscores(request, game_name):
+    displayDetails=dict()
+    if request.user.is_authenticated and not request.user.is_anonymous:
+        gameDetails = Game.objects.get(game_name=game_name)
+        scoresDetails = Score.objects.filter(game=gameDetails)
+        if request.method == 'GET':
+            details = {"game": gameDetails.game_name, "scores": {}}
+            for score in scoresDetails:
+                details["scores"][score.player.username] = score.score
+                displayDetails[score.player.username]=score.score
+            return render(request, 'displayHighScores.html', {'details':displayDetails})
+    else:
+        return redirect("/login")

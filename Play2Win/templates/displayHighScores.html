@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Play2Win{% endblock %}
+{% block content %}
+<link href="static/styles.css" rel="stylesheet" type="text/css" />
+
+<div class="container">
+  <div class="alert alert-info text-center" role="alert">
+  High Scores <a href="#">
+  </div>
+  <hr>
+  <div class="row">
+
+    <div class="col-md-6">
+      <!--# loop over the the details sent from the view.py . Its a dict with username as key and score as value-->
+        <div id="centertag">
+                <p>
+                  <ol>
+        {% for key,value in details.items %}
+        <li>
+          Name : {{key}}   Score :{{value}}
+        </li>
+        {% endfor %}
+      </ol>
+                </p>
+        </div>
+        <p><a href="{% url 'home' %}">Go back</a> to home page</p>
+    </div>
+  </div>
+<div class="alert alert-info text-center" role="alert">Developed by: <a href="https://github.com/Shaptarshi-Basu">Shaptarshi Basu</a></div>
+</div>
+{% endblock %}

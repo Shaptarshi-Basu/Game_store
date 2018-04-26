@@ -21,5 +21,8 @@ urlpatterns = [
     url(r'^save/', Play2Win.views.save),
     url(r'^load/', Play2Win.views.load),
     url(r'^score/', Play2Win.views.score),
+    url(r'^accounts/', include('allaccess.urls')),
+    url(r'^highscores/(.+)$', Play2Win.views.highscores),
     path('admin/', admin.site.urls),
+
 ]
