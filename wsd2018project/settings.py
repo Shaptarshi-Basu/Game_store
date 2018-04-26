@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'Play2Win',
     'social_django',
     'rest_framework',
-    'allaccess'
 ]
 
 MIDDLEWARE = [
@@ -109,7 +108,6 @@ DATABASES = {
 }
 AUTHENTICATION_BACKENDS = (
  'django.contrib.auth.backends.ModelBackend',
- 'allaccess.backends.AuthorizedServiceBackend',
  'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
  'social_core.backends.google.GoogleOpenId',  # for Google authentication
  'social_core.backends.google.GoogleOAuth2',  # for Google authentication
