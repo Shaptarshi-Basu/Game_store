@@ -82,10 +82,12 @@ Wenzhu Xing           | wenzhu.xing@student.tut.fi     | 267642 |
 
 
 ## Instructions
-*Either register in the heroku deployment or use the follwoing username and passwords
-*For Developer account 
-    *username : teresa
-    *password : October@1991
-*For Player account
-    *username : manlio
-    *password : October@1991
+
+* Either register in the heroku deployment or use the follwoing username and passwords
+* For Developer account
+    * username : teresa
+    * password : October@1991
+* For Developer account
+    * username : manlio
+    * password : October@1991
+ 
