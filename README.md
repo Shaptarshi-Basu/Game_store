@@ -57,6 +57,7 @@ Front-end will have the views and static files required for the user interfaces.
 To be filled later
 
 ## Distribuation of works
+* The application has been developed by Shaptarshi Basu.The games have been developed by both Shaptarshi Basu and Wenzhu Zing
 
 
 Name                  | Email                          | StudentId  
