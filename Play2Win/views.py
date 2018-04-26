@@ -107,7 +107,7 @@ def game(request, name):
         else:
             return redirect('../begin_payment/' + name)
     else:
-        return redirect('login')
+        return redirect('/login')
 def createPaymentID(username, game_name):
     pid = username
     pid += '____'
