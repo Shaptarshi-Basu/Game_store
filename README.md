@@ -25,13 +25,13 @@ These features will be implemented, unless otherwise specified.
     * Developers can add/modify/remove and see sales statistics of their own games.
 * Authentication.
 * Game/service communication.
-* JavaScript game (something moving and interesting)
+* JavaScript game (something moving and interesting,2 games added by deadline)
 * Quality of work (Testing, agreed coding standard, quality assurance...)
 * Documentation (game and final report separately)
 * Testing the service with other groups’ games
-* RESTful API (GET, POST, PUT, DELETE)
-* Save/load and resolution feature (resolution is implemented only if time allows it)
-* Mobile Friendly (implemented if time allows it)
+* RESTful API (GET)
+* Save/load and resolution feature 
+* Mobile Friendly
 * 3rd party login (implemented if time allows it)
 
 ## Implementation of features
@@ -42,13 +42,13 @@ Back-end will have the database, exposed through a RESTful API.
 Front-end will have the views and static files required for the user interfaces.
 
 * Back-end
-    yet to be implemented
+    Completely Implemented
 
 * Front-end
-    yet to be implemented
+    Completely Implemented
 
 * Games
-    yet to be implemented
+    Completely Implemented
 
 * Documentations
     * DONE. Project plan.
